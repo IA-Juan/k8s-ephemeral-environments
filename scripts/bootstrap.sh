@@ -5,13 +5,7 @@ set -e
 source scripts/lib/common.sh
 
 
-NAMESPACE=${1:-demo-123}
-
-
-banner "EDC Environment Bootstrap"
-
-
-echo "Using namespace: ${NAMESPACE}"
+banner "EDC Kubernetes Platform Bootstrap"
 
 
 echo ""
@@ -22,75 +16,113 @@ check_command helm
 check_command docker
 
 
+
 echo ""
 echo "== Kubernetes =="
 
 kubectl get nodes
 
 
+
 echo ""
 echo "== Installing ingress-nginx =="
+
 
 if ! kubectl get namespace ingress-nginx >/dev/null 2>&1
 then
 
-  helm repo add ingress-nginx \
-    https://kubernetes.github.io/ingress-nginx
+    echo "Installing ingress-nginx..."
 
-  helm repo update
+    helm repo add ingress-nginx \
+        https://kubernetes.github.io/ingress-nginx
+
+    helm repo update
 
 
-  helm upgrade --install ingress-nginx \
-    ingress-nginx/ingress-nginx \
-    --namespace ingress-nginx \
-    --create-namespace
+    helm upgrade --install ingress-nginx \
+        ingress-nginx/ingress-nginx \
+        --namespace ingress-nginx \
+        --create-namespace
 
 else
 
-  echo "Ingress namespace already exists"
+    echo "Ingress namespace already exists"
 
 fi
 
 
 
 echo ""
+echo "== Waiting for ingress controller =="
+
+
+kubectl rollout status \
+deployment/ingress-nginx-controller \
+-n ingress-nginx \
+--timeout=180s
+
+
+
+echo ""
 echo "== Building application image =="
+
 
 ./scripts/build.sh
 
 
 
 echo ""
-echo "== Loading image =="
+echo "== Loading image into Kubernetes runtime =="
+
 
 ./scripts/load-image.sh
 
 
 
 echo ""
-echo "== Deploying environment =="
+echo "== Verifying image availability =="
 
-./scripts/deploy.sh ${NAMESPACE}
+
+IMAGE="edc-demo-web:latest"
+
+
+if sudo ctr -n k8s.io images ls | grep -q "edc-demo-web"
+then
+
+    echo "Image available:"
+    sudo ctr -n k8s.io images ls | grep "edc-demo-web"
+
+else
+
+    echo ""
+    echo "ERROR: Image ${IMAGE} not found in Kubernetes runtime"
+    exit 1
+
+fi
 
 
 
 echo ""
-echo "== Waiting for application =="
-
-
-kubectl rollout status \
-deployment/${NAMESPACE}-web \
--n ${NAMESPACE} \
---timeout=180s
-
-
-
+echo "===================================="
+echo " Bootstrap completed successfully"
+echo "===================================="
 echo ""
-echo "== Final status =="
-
-kubectl get pods -n ${NAMESPACE}
-
-
+echo "Cluster:"
+echo "  READY"
 echo ""
-
-echo "Bootstrap completed successfully"
+echo "Ingress Controller:"
+echo "  READY"
+echo ""
+echo "Application image:"
+echo "  ${IMAGE}"
+echo ""
+echo "Next step:"
+echo ""
+echo "  ./scripts/deploy.sh <environment-name>"
+echo ""
+echo "Example:"
+echo ""
+echo "  ./scripts/deploy.sh demo-123"
+echo "  ./scripts/deploy.sh demo-456"
+echo ""
+echo "===================================="
