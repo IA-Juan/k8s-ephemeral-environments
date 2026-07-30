@@ -1,30 +1,26 @@
-.PHONY: help build deploy destroy lint clean
+.PHONY: bootstrap build deploy destroy lint
 
-help:
-	@echo "Available commands:"
-	@echo ""
-	@echo "make build   - Build application image"
-	@echo "make deploy  - Deploy Kubernetes environment"
-	@echo "make destroy - Remove Kubernetes environment"
-	@echo "make lint    - Validate Helm chart"
-	@echo "make clean   - Clean temporary files"
+
+bootstrap:
+
+	bash scripts/bootstrap.sh
 
 
 build:
-	./scripts/build.sh
+
+	bash scripts/build.sh
 
 
 deploy:
-	./scripts/deploy.sh
+
+	bash scripts/deploy.sh demo-123
 
 
 destroy:
-	./scripts/destroy.sh
+
+	bash scripts/destroy.sh demo-123
 
 
 lint:
+
 	helm lint charts/edc-environment
-
-
-clean:
-	rm -rf tmp/
