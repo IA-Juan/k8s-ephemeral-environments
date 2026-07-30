@@ -29,8 +29,29 @@ async function checkConnection(){
 }
 
 
+async function getEnvironmentInfo(){
+
+    const result = await pool.query(
+        `
+        SELECT
+            id,
+            environment,
+            status,
+            created_at
+        FROM environment_info
+        ORDER BY id
+        `
+    );
+
+    return result.rows;
+
+}
+
+
 module.exports = {
 
-    checkConnection
+    checkConnection,
+
+    getEnvironmentInfo
 
 };

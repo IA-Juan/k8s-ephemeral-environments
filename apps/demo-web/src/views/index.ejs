@@ -45,7 +45,37 @@ RUNNING
 Database status:
 Check /db endpoint
 </p>
+<hr>
 
+<h2>
+Database records
+</h2>
+
+
+<ul>
+
+<% records.forEach(record => { %>
+
+<li>
+
+<b>
+<%= record.environment %>
+</b>
+
+-
+
+<%= record.status %>
+
+<br>
+
+Created:
+<%= record.created_at %>
+
+</li>
+
+<% }) %>
+
+</ul>
 
 </body>
 

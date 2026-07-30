@@ -12,8 +12,12 @@ router.get("/", async(req,res)=>{
     try {
 
 
-        const result =
+        const connection =
             await database.checkConnection();
+
+
+        const records =
+            await database.getEnvironmentInfo();
 
 
         res.json({
@@ -21,7 +25,9 @@ router.get("/", async(req,res)=>{
             database:"connected",
 
             time:
-                result.now
+                connection.now,
+
+            records
 
         });
 

@@ -2,22 +2,48 @@ const router = require("express").Router();
 
 const config = require("../config");
 
+const database = require("../services/database");
 
-router.get("/", (req,res)=>{
+
+router.get("/", async (req,res)=>{
 
 
-    res.render(
-        "index",
-        {
+    try {
 
-            environment:
-                config.environment.name,
 
-            namespace:
-                config.environment.namespace
+        const records =
+            await database.getEnvironmentInfo();
 
-        }
-    );
+
+        res.render(
+            "index",
+            {
+
+                environment:
+                    config.environment.name,
+
+                namespace:
+                    config.environment.namespace,
+
+                records
+
+            }
+        );
+
+
+    }
+    catch(error){
+
+
+        res.status(500).send(
+            `
+            <h1>Application error</h1>
+            <pre>${error.message}</pre>
+            `
+        );
+
+
+    }
 
 
 });
