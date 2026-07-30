@@ -126,3 +126,18 @@ echo "  ./scripts/deploy.sh demo-123"
 echo "  ./scripts/deploy.sh demo-456"
 echo ""
 echo "===================================="
+
+echo "Verify environments with:"
+echo ""
+
+echo "  curl -H \"Host: demo-123.localtest.me\" http://localhost:<INGRESS_NODE_PORT>"
+echo ""
+echo "  curl -H \"Host: demo-456.localtest.me\" http://localhost:<INGRESS_NODE_PORT>"
+echo ""
+
+echo "Replace <INGRESS_NODE_PORT> with the HTTP NodePort from:"
+echo ""
+echo "  kubectl get svc -n ingress-nginx"
+echo ""
+
+echo "===================================="
