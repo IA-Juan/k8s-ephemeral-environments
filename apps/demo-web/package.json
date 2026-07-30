@@ -2,6 +2,16 @@
   "name": "demo-web",
   "version": "1.0.0",
   "description": "EDC Kubernetes Ephemeral Environment Demo Application",
+  
+  "keywords": [
+  "kubernetes",
+  "docker",
+  "helm",
+  "devops",
+  "ephemeral"
+ ],
+  
+  
   "main": "src/server.js",
   "private": true,
 
