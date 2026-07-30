@@ -1,0 +1,4 @@
+INSERT INTO environment_info(environment, status)
+VALUES
+('ENVIRONMENT_CREATED', 'RUNNING'),
+('DATABASE_CONNECTED', 'READY');
