@@ -18,7 +18,7 @@ check_command docker
 
 echo "Kubernetes:"
 
-kubectl version --short || true
+kubectl version  || true
 
 
 echo ""
