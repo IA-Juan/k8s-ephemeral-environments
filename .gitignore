@@ -1,0 +1,37 @@
+# Node
+
+node_modules/
+npm-debug.log
+
+# Environment variables
+
+.env
+.env.*
+
+# Logs
+
+*.log
+logs/
+
+# Coverage
+
+coverage/
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS
+
+.DS_Store
+Thumbs.db
+
+# Kubernetes packages
+
+*.tgz
+
+# Temporary
+
+tmp/
+temp/

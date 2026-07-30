@@ -1,0 +1,11 @@
+environment:
+  name: demo-456
+
+namespace:
+  name: demo-456
+
+ingress:
+  host: demo-456.localtest.me
+
+database:
+  name: demo456
