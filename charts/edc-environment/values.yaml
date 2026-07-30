@@ -1,0 +1,65 @@
+replicaCount: 1
+
+
+image:
+
+  repository: edc-demo-web
+
+  tag: latest
+
+  pullPolicy: IfNotPresent
+
+
+
+service:
+
+  type: ClusterIP
+
+  port: 80
+
+  targetPort: 3000
+
+
+
+ingress:
+
+  enabled: true
+
+  className: nginx
+
+  host: demo.localtest.me
+
+
+
+environment:
+
+  name: demo
+
+  namespace: demo
+
+
+
+database:
+
+  name: demo
+
+  user: postgres
+
+
+
+postgresql:
+
+  enabled: true
+
+  auth:
+
+    postgresPassword: postgres
+
+    database: demo
+
+
+  persistence:
+
+    enabled: true
+
+    size: 1Gi

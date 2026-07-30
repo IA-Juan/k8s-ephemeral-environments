@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+
+metadata:
+
+  name: {{ include "edc.fullname" . }}
+
+
+
+spec:
+
+  replicas: {{ .Values.replicaCount }}
+
+
+  selector:
+
+    matchLabels:
+
+      app: {{ include "edc.fullname" . }}
+
+
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: {{ include "edc.fullname" . }}
+
+
+
+    spec:
+
+
+      containers:
+
+
+      - name: web
+
+
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+
+        ports:
+
+        - containerPort: 3000
+
+
+
+        envFrom:
+
+        - configMapRef:
+
+            name: {{ include "edc.fullname" . }}
+
+
+        - secretRef:
+
+            name: {{ include "edc.fullname" . }}
+
+
+
+        readinessProbe:
+
+          httpGet:
+
+            path: /ready
+
+            port: 3000
+
+
+
+        livenessProbe:
+
+          httpGet:
+
+            path: /health
+
+            port: 3000
