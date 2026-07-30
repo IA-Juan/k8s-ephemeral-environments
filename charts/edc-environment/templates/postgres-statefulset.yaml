@@ -67,7 +67,7 @@ spec:
           mountPath: /docker-entrypoint-initdb.d/seed.sql
           subPath: seed.sql
 
-volumeClaimTemplates:
+  volumeClaimTemplates:
 
   - metadata:
 
