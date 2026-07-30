@@ -44,22 +44,4 @@ database:
   name: demo
 
   user: postgres
-
-
-
-postgresql:
-
-  enabled: true
-
-  auth:
-
-    postgresPassword: postgres
-
-    database: demo
-
-
-  persistence:
-
-    enabled: true
-
-    size: 1Gi
+  password: postgres
