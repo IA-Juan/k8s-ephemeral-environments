@@ -35,6 +35,8 @@ then
 
     helm repo add ingress-nginx \
         https://kubernetes.github.io/ingress-nginx
+    helm repo add sealed-secrets \ 
+        https://bitnami.github.io/sealed-secrets
 
     helm repo update
 
@@ -43,6 +45,12 @@ then
         ingress-nginx/ingress-nginx \
         --namespace ingress-nginx \
         --create-namespace --hide-notes
+
+    helm upgrade --install sealed-secrets \
+        sealed-secrets/sealed-secrets \
+        --namespace kube-system \
+        --create-namespace --hide-notes
+
 
 else
 
