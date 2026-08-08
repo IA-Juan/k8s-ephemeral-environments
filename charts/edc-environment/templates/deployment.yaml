@@ -12,6 +12,7 @@ spec:
       labels:
         app: {{ include "edc.fullname" . }}
     spec:
+    automountServiceAccountToken: false  # SUgerencia best practice @SonarQube
       containers:
       - name: web
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
