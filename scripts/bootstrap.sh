@@ -35,8 +35,7 @@ then
 
     helm repo add ingress-nginx \
         https://kubernetes.github.io/ingress-nginx
-    helm repo add sealed-secrets \ 
-        https://bitnami.github.io/sealed-secrets
+    helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets
 
     helm repo update
 
