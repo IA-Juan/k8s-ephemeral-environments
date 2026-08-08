@@ -126,6 +126,7 @@ Deploy Helm release
 Install PostgreSQL
 Configure networking
 Verify application readiness
+
 Remove Environment
 ./scripts/destroy.sh demo-123
 
@@ -407,31 +408,4 @@ Ingress Exposure
     |
 
 Health Verification
-
-docs/walkthrough.md
-# Demo Walkthrough
-
-The final demonstration will show:
-
-1. Create demo-123 environment
-2. Access web application
-3. Verify database connection
-4. Create demo-456
-5. Demonstrate isolation
-6. Remove demo-123
-7. Verify demo-456 remains available
-docs/interview-notes.md
-# Interview Notes
-
-Key topics:
-
-- Kubernetes resource management
-- Helm templating
-- Stateful workloads
-- Persistent storage
-- Namespace isolation
-- Infrastructure as Code
-- Deployment automation
-
-The objective is not complexity but a clear and maintainable solution.
 
