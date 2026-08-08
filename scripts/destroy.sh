@@ -8,7 +8,7 @@ ENVIRONMENT=$1
 
 
 
-if [ -z "$ENVIRONMENT" ]
+if [[ -z "$ENVIRONMENT" ]]
 
 then
 
