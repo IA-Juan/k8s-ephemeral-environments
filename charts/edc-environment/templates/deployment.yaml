@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "edc.fullname" . }}-web
+  name: {{ include "edc.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "edc.fullname" . }}-web
+      app: {{ include "edc.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "edc.fullname" . }}-web
+        app: {{ include "edc.fullname" . }}
     spec:
       containers:
       - name: web
