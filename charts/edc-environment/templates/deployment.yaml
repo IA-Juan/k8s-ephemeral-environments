@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "edc.fullname" . }}-web
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "edc.fullname" . }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ include "edc.fullname" . }}-web
+    spec:
+      containers:
+      - name: web
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+
+        # CONEXIÓN PURA AL SECRET REAL (ConfigMap eliminado) 
+        envFrom:
+        - secretRef:
+            name: {{ .Release.Name }}-web
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
