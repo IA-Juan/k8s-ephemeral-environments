@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --omit=dev --ignore-scripts
+# RUN npm install --omit=dev --ignore-scripts
+
+RUN npm ci --omit=dev --ignore-scripts
+
 
 COPY src ./src
 
