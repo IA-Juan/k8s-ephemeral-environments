@@ -42,7 +42,7 @@ then
     helm upgrade --install ingress-nginx \
         ingress-nginx/ingress-nginx \
         --namespace ingress-nginx \
-        --create-namespace
+        --create-namespace --hide-notes
 
 else
 
