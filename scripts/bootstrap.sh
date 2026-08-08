@@ -28,36 +28,26 @@ echo ""
 echo "== Installing ingress-nginx =="
 
 
-if ! kubectl get namespace ingress-nginx >/dev/null 2>&1
-then
+echo ""
+echo "== Syncing Helm Repositories =="
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets
+helm repo update
 
-    echo "Installing ingress-nginx..."
+echo ""
+echo "== Installing Cluster Infrastructure =="
+echo "== ingress-nginx & sealed-secrets ==" 
+# Helm creará o actualizará ingress de forma segura
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-nginx \
+    --create-namespace \
+    --hide-notes
 
-    helm repo add ingress-nginx \
-        https://kubernetes.github.io/ingress-nginx
-    helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets
-
-    helm repo update
-
-
-    helm upgrade --install ingress-nginx \
-        ingress-nginx/ingress-nginx \
-        --namespace ingress-nginx \
-        --create-namespace --hide-notes
-
-    helm upgrade --install sealed-secrets \
-        sealed-secrets/sealed-secrets \
-        --namespace kube-system \
-        --create-namespace --hide-notes
-
-
-else
-
-    echo "Ingress namespace already exists"
-
-fi
-
-
+# Helm creará o actualizará sealed-secrets de forma independiente en kube-system
+helm upgrade --install sealed-secrets sealed-secrets/sealed-secrets \
+    --namespace kube-system \
+    --create-namespace \
+    --hide-notes
 
 echo ""
 echo "== Waiting for ingress controller =="
