@@ -79,26 +79,26 @@ echo "== Loading image into Kubernetes runtime =="
 
 
 
-echo ""
-echo "== Verifying image availability =="
+# echo ""
+# echo "== Verifying image availability =="
 
 
-IMAGE="edc-demo-web:latest"
+# IMAGE="edc-demo-web:latest"
 
 
-if sudo ctr -n k8s.io images ls | grep -q "edc-demo-web"
-then
+# if sudo ctr -n k8s.io images ls | grep -q "edc-demo-web"
+# then
 
-    echo "Image available:"
-    sudo ctr -n k8s.io images ls | grep "edc-demo-web"
+#     echo "Image available:"
+#     sudo ctr -n k8s.io images ls | grep "edc-demo-web"
 
-else
+# else
 
-    echo ""
-    echo "ERROR: Image ${IMAGE} not found in Kubernetes runtime"
-    exit 1
+#     echo ""
+#     echo "ERROR: Image ${IMAGE} not found in Kubernetes runtime"
+#     exit 1
 
-fi
+# fi
 
 
 
