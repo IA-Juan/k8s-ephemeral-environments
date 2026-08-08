@@ -33,7 +33,7 @@ then
 
     echo "Installing ingress-nginx..."
 
-    helm repo add ingress-nginx \
+     repo add ingress-nginx \
         https://kubernetes.github.io/ingress-nginx
 
     helm repo update
@@ -42,7 +42,7 @@ then
     helm upgrade --install ingress-nginx \
         ingress-nginx/ingress-nginx \
         --namespace ingress-nginx \
-        --create-namespace
+        --create-namespace --hide-notes
 
 else
 
