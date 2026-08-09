@@ -78,10 +78,3 @@ spec:
         requests:
 
           storage: 1Gi
-
-  # Variables para popular la db
-  - name: K8S_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-
